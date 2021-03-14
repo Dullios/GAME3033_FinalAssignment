@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 0.6
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e19adf50a9d4b374d99ba1eaa1497e60, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -181,7 +181,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.6037736, g: 0.5739739, b: 0.49270204, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -441,9 +441,9 @@ MonoBehaviour:
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.16164732
+  m_SoftZoneWidth: 0.071557246
   m_SoftZoneHeight: 0.24164757
-  m_BiasX: 0
+  m_BiasX: -0.00000041648224
   m_BiasY: 0
   m_CenterOnActivate: 1
 --- !u!114 &1314788541
@@ -1067,6 +1067,7 @@ GameObject:
   - component: {fileID: 1304993742850808289}
   - component: {fileID: 1304993742850808288}
   - component: {fileID: 1304993742850808287}
+  - component: {fileID: 1304993742850808286}
   - component: {fileID: 1304993742850808285}
   m_Layer: 0
   m_Name: Player
@@ -1087,7 +1088,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b518e99fc61147478f9413fed17d236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerState: 0
   inputVector: {x: 0, y: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   walkSpeed: 5
@@ -1095,6 +1095,22 @@ MonoBehaviour:
   jumpForce: 3
   rotationPower: 0.2
   horizontalDampening: 1
+--- !u!114 &1304993742850808286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304993742850808284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 973a20363f2746445883a8f62b722ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRunning: 0
+  isJumping: 0
+  isAttacking: 0
+  isBlocking: 0
 --- !u!54 &1304993742850808287
 Rigidbody:
   m_ObjectHideFlags: 0

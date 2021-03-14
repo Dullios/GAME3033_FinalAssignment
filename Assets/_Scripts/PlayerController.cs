@@ -3,24 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[System.Serializable]
-public enum PlayerState
-{
-    WALK,
-    RUN,
-    JUMP,
-    ATTACK
-}
-
 public class PlayerController : MonoBehaviour
 {
-    // Player States
-    [SerializeField]
-    private PlayerState playerState;
-
     // Components
     private Animator anim;
     private Rigidbody rigidBody;
+    private PlayerStats playerStats;
 
     [Header("Movement")]
     [SerializeField] private Vector2 inputVector = Vector2.zero;
@@ -42,10 +30,7 @@ public class PlayerController : MonoBehaviour
     public readonly int MovementYHash = Animator.StringToHash("MovementY");
     public readonly int IsRunningHash = Animator.StringToHash("isRunning");
     public readonly int IsJumpingHash = Animator.StringToHash("isJumping");
-    
-    public readonly int Combo1Hash = Animator.StringToHash("Combo1");
-    public readonly int Combo2Hash = Animator.StringToHash("Combo2");
-    public readonly int Combo3Hash = Animator.StringToHash("Combo3");
+    public readonly int IsBlockingHash = Animator.StringToHash("isBlocking");
 
     // Start is called before the first frame update
     void Start()
@@ -54,29 +39,19 @@ public class PlayerController : MonoBehaviour
 
         anim = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void Update()
     {
-        Vector3 movementDirection = Vector3.zero;
-
-        switch (playerState)
+        if (!playerStats.isJumping && !playerStats.isAttacking && !playerStats.isBlocking)
         {
-            case PlayerState.WALK:
-                moveDirection = transform.forward * inputVector.y + transform.right * inputVector.x;
+            moveDirection = transform.forward * inputVector.y + transform.right * inputVector.x;
 
-                movementDirection = moveDirection * (walkSpeed * Time.deltaTime);
+            float speed = playerStats.isRunning ? runSpeed : walkSpeed;
+            Vector3 movementDirection = moveDirection * (speed * Time.deltaTime);
 
-                transform.position += movementDirection;
-                break;
-            
-            case PlayerState.RUN:
-                moveDirection = transform.forward * inputVector.y + transform.right * inputVector.x;
-
-                movementDirection = moveDirection * (runSpeed * Time.deltaTime);
-
-                transform.position += movementDirection;
-                break;
+            transform.position += movementDirection;
         }
     }
 
@@ -89,26 +64,26 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputValue value)
     {
-        if (playerState != PlayerState.JUMP)
+        if (!playerStats.isJumping)
         {
             anim.SetBool(IsRunningHash, value.isPressed);
 
-            playerState = value.isPressed ? PlayerState.RUN : PlayerState.WALK;
+            playerStats.isRunning = value.isPressed;
         }
     }
 
     public void OnJump(InputValue value)
     {
-        if(playerState != PlayerState.JUMP)
+        if(!playerStats.isJumping)
         {
             anim.SetBool(IsJumpingHash, value.isPressed);
 
-            float force = playerState == PlayerState.RUN ? runSpeed : walkSpeed;
+            float force = playerStats.isRunning ? runSpeed : walkSpeed;
             Vector3 forceVector = (transform.up * jumpForce) + (moveDirection * force);
 
             rigidBody.AddForce(forceVector, ForceMode.Impulse);
             
-            playerState = PlayerState.JUMP;
+            playerStats.isJumping = true;
         }
     }
 
@@ -117,9 +92,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnLook(InputValue value)
+    public void OnLook(InputValue value)
     {
-        if (playerState != PlayerState.ATTACK)
+        if (!playerStats.isAttacking && !playerStats.isBlocking)
         {
             Vector2 lookValue = value.Get<Vector2>();
 
@@ -131,13 +106,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnAttack(InputValue value)
+    public void OnAttack(InputValue value)
     {
-        if (playerState == PlayerState.WALK)
+        if (!playerStats.isAttacking && !playerStats.isBlocking)
         {
             anim.Play("Combo 1");
             comboStep++;
-            playerState = PlayerState.ATTACK;
+            playerStats.isAttacking = true;
         }
         else if (comboStep != 0)
         {
@@ -170,15 +145,22 @@ public class PlayerController : MonoBehaviour
     {
         comboPossible = false;
         comboStep = 0;
-        playerState = PlayerState.WALK;
+        playerStats.isAttacking = false;
+    }
+
+    public void OnBlock(InputValue value)
+    {
+        anim.SetBool(IsBlockingHash, value.isPressed);
+
+        playerStats.isBlocking = value.isPressed;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(playerState == PlayerState.JUMP)
+        if(playerStats.isJumping)
         {
             anim.SetBool(IsJumpingHash, false);
-            playerState = PlayerState.WALK;
+            playerStats.isJumping = false;
         }
     }
 }
