@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
     public bool isBlocking;
 
     [Header("Attribtues")]
-    public int health;
+    public int currentHealth;
+    public int maxHealth;
     public int damage;
 }

@@ -1111,6 +1111,8 @@ MonoBehaviour:
   isJumping: 0
   isAttacking: 0
   isBlocking: 0
+  health: 0
+  damage: 0
 --- !u!54 &1304993742850808287
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1140,7 +1142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: ad20ab4733fe03a4e9c9af9b85b049f5, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
