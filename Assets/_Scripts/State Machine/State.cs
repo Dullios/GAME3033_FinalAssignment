@@ -40,11 +40,11 @@ public class State
 
 public class BossStates : State
 {
-    protected BossStates ownerZombie;
+    protected BossBehaviour owner;
 
-    public BossStates(BossStates zombie, StateMachine stateMachine) : base(stateMachine)
+    public BossStates(BossBehaviour boss, StateMachine stateMachine) : base(stateMachine)
     {
-        ownerZombie = zombie;
+        owner = boss;
     }
 }
 
