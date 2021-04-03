@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class BossBehaviour : MonoBehaviour
 {
+    public float actionDelay;
+
     // Components
     public Animator anim { get; private set; }
     public NavMeshAgent navAgent { get; private set; }
@@ -26,16 +28,16 @@ public class BossBehaviour : MonoBehaviour
     {
         followTarget = target;
 
-        BossIdleState idleState = new BossIdleState(this, stateMachine);
+        BossIdleState idleState = new BossIdleState(this, stateMachine, actionDelay);
         stateMachine.AddState(BossStateType.Idle, idleState);
 
-        BossFollowState followState = new BossFollowState(followTarget, this, stateMachine);
+        BossFollowState followState = new BossFollowState(followTarget, this, stateMachine, actionDelay);
         stateMachine.AddState(BossStateType.Follow, followState);
 
-        BossAttackState attackState = new BossAttackState(followTarget, this, stateMachine);
+        BossAttackState attackState = new BossAttackState(followTarget, this, stateMachine, actionDelay);
         stateMachine.AddState(BossStateType.Attack, attackState);
 
-        BossDeadState deadState = new BossDeadState(this, stateMachine);
+        BossDeadState deadState = new BossDeadState(this, stateMachine, actionDelay);
         stateMachine.AddState(BossStateType.Dead, deadState);
 
         stateMachine.Initialize(BossStateType.Follow);

@@ -7,7 +7,7 @@ public class BossDeadState : BossStates
     private static readonly int WalkingHash = Animator.StringToHash("Walking");
     private static readonly int IsDeadHash = Animator.StringToHash("IsDead");
 
-    public BossDeadState(BossBehaviour boss, StateMachine stateMachine) : base(boss, stateMachine)
+    public BossDeadState(BossBehaviour boss, StateMachine stateMachine, float delay) : base(boss, stateMachine, delay)
     {
 
     }

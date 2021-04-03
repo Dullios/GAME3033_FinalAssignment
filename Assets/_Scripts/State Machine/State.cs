@@ -42,9 +42,13 @@ public class BossStates : State
 {
     protected BossBehaviour owner;
 
-    public BossStates(BossBehaviour boss, StateMachine stateMachine) : base(stateMachine)
+    protected float actionDelay;
+    protected float delayTimer;
+
+    public BossStates(BossBehaviour boss, StateMachine stateMachine, float delay) : base(stateMachine)
     {
         owner = boss;
+        actionDelay = delay;
     }
 }
 

@@ -10,7 +10,7 @@ public class BossFollowState : BossStates
 
     public readonly int WalkingHash = Animator.StringToHash("Walking");
 
-    public BossFollowState(GameObject target, BossBehaviour boss, StateMachine stateMachine) : base(boss, stateMachine)
+    public BossFollowState(GameObject target, BossBehaviour boss, StateMachine stateMachine, float delay) : base(boss, stateMachine, delay)
     {
         followTarget = target;
         updateInterval = 2.0f;
@@ -30,7 +30,7 @@ public class BossFollowState : BossStates
     {
         owner.anim.SetFloat(WalkingHash, owner.navAgent.velocity.normalized.z);
 
-        if(Vector3.Distance(owner.transform.position, followTarget.transform.position) <= stopDistance)
+        if (Vector3.Distance(owner.transform.position, followTarget.transform.position) <= stopDistance)
         {
             stateMachine.ChangeState(BossStateType.Attack);
         }

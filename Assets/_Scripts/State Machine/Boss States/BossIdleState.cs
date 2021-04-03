@@ -6,7 +6,7 @@ public class BossIdleState : BossStates
 {
     public readonly int WalkingHash = Animator.StringToHash("Walking");
 
-    public BossIdleState(BossBehaviour boss, StateMachine stateMachine) : base(boss, stateMachine)
+    public BossIdleState(BossBehaviour boss, StateMachine stateMachine, float delay) : base(boss, stateMachine, delay)
     {
 
     }
