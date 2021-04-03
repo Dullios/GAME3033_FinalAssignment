@@ -162,5 +162,18 @@ public class PlayerController : MonoBehaviour
             anim.SetBool(IsJumpingHash, false);
             playerStats.isJumping = false;
         }
+
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            if(!playerStats.hasBlocked)
+            {
+                Debug.Log("Took Damage!");
+            }
+            else
+            {
+                Debug.Log("Blocked Damage!");
+                playerStats.hasBlocked = false;
+            }
+        }
     }
 }

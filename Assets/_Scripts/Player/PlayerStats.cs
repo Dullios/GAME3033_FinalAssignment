@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     public bool isJumping;
     public bool isAttacking;
     public bool isBlocking;
+    public bool hasBlocked;
 
     [Header("Attribtues")]
     public int currentHealth;

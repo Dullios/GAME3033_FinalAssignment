@@ -7,6 +7,10 @@ public class BossBehaviour : MonoBehaviour
 {
     public float actionDelay;
 
+    [Header("Colliders")]
+    public CapsuleCollider leftHand;
+    public CapsuleCollider rightHand;
+
     // Components
     public Animator anim { get; private set; }
     public NavMeshAgent navAgent { get; private set; }
@@ -20,6 +24,9 @@ public class BossBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         stateMachine = GetComponent<StateMachine>();
+
+        leftHand.enabled = false;
+        rightHand.enabled = false;
 
         Initialize(followTarget);
     }

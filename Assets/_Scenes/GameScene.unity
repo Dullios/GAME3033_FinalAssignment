@@ -1977,9 +1977,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8678936628528155360}
   - component: {fileID: 885633482122574993}
+  - component: {fileID: 885633482122574994}
   m_Layer: 0
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1997,6 +1998,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.05, z: 0.7}
   m_Center: {x: 0.19, y: -0.055, z: 0.46}
+--- !u!114 &885633482122574994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885633482122574992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37b4cffa8525044ba2733a2abb549e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &903596144673028888
 Transform:
   m_ObjectHideFlags: 0
@@ -2314,6 +2327,7 @@ MonoBehaviour:
   isJumping: 0
   isAttacking: 0
   isBlocking: 0
+  hasBlocked: 0
   currentHealth: 0
   maxHealth: 0
   damage: 0
@@ -3261,7 +3275,7 @@ GameObject:
   - component: {fileID: 2742667974299506687}
   m_Layer: 0
   m_Name: Pumpkin Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3327,6 +3341,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionDelay: 3
+  leftHand: {fileID: 3234538402668120064}
+  rightHand: {fileID: 4060500759888212664}
   followTarget: {fileID: 1304993742850808284}
 --- !u!4 &2746486225752943256
 Transform:
@@ -3628,13 +3644,28 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6623463444788840285}
+  - component: {fileID: 3234538402668120064}
   m_Layer: 0
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &3234538402668120064
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3234538402668120063}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 1
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &3259718808984504904
 Transform:
   m_ObjectHideFlags: 0
@@ -4148,13 +4179,28 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5504080414605608135}
+  - component: {fileID: 4060500759888212664}
   m_Layer: 0
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &4060500759888212664
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060500759888212663}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 1
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &4078461358170535231
 Transform:
   m_ObjectHideFlags: 0
@@ -5057,9 +5103,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6993874539168728317}
   - component: {fileID: 6190360730155115112}
+  - component: {fileID: 6190360730155115113}
   m_Layer: 0
   m_Name: LeftForeArm
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5077,6 +5124,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.44, y: 0.05, z: 0.67}
   m_Center: {x: -0.13, y: 0.05, z: -0.05}
+--- !u!114 &6190360730155115113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6190360730155115111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1437d08616a5666419955e5852eff634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 1304993742850808286}
 --- !u!4 &6306501324932222892
 Transform:
   m_ObjectHideFlags: 0
