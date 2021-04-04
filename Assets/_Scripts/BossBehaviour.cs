@@ -49,4 +49,9 @@ public class BossBehaviour : MonoBehaviour
 
         stateMachine.Initialize(BossStateType.Follow);
     }
+
+    public void ResetAttackCollider()
+    {
+        rightHand.enabled = false;
+    }
 }

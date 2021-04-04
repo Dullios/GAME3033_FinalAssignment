@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossDeadState : BossStates
 {
     private static readonly int WalkingHash = Animator.StringToHash("Walking");
-    private static readonly int IsDeadHash = Animator.StringToHash("IsDead");
+    private static readonly int IsDeadHash = Animator.StringToHash("isDead");
 
     public BossDeadState(BossBehaviour boss, StateMachine stateMachine, float delay) : base(boss, stateMachine, delay)
     {

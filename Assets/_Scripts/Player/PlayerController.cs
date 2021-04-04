@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     private PlayerStats playerStats;
 
     [Header("Movement")]
-    [SerializeField] private Vector2 inputVector = Vector2.zero;
-    [SerializeField] private Vector3 moveDirection = Vector3.zero;
+    private Vector2 inputVector = Vector2.zero;
+    private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
     [SerializeField] private float jumpForce;
@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float horizontalDampening = 1.0f;
     private Vector2 previousMouseDelta = Vector2.zero;
 
-    private int comboStep;
+    public int comboStep;
     private bool comboPossible;
 
-    //Animator Hashes
+    // Animator Hashes
     public readonly int MovementXHash = Animator.StringToHash("MovementX");
     public readonly int MovementYHash = Animator.StringToHash("MovementY");
     public readonly int IsRunningHash = Animator.StringToHash("isRunning");
@@ -52,6 +52,29 @@ public class PlayerController : MonoBehaviour
             Vector3 movementDirection = moveDirection * (speed * Time.deltaTime);
 
             transform.position += movementDirection;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (playerStats.isJumping)
+        {
+            anim.SetBool(IsJumpingHash, false);
+            playerStats.isJumping = false;
+        }
+
+        if (collision.gameObject.CompareTag("Attack"))
+        {
+            if (!playerStats.hasBlocked)
+            {
+                playerStats.ModifyHealth(-collision.gameObject.GetComponentInParent<EnemyStats>().damage);
+                Debug.Log("Took Damage!");
+            }
+            else
+            {
+                Debug.Log("Blocked Damage!");
+                playerStats.hasBlocked = false;
+            }
         }
     }
 
@@ -94,7 +117,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputValue value)
     {
-        if (!playerStats.isAttacking && !playerStats.isBlocking)
+        if (!playerStats.isAttacking)
         {
             Vector2 lookValue = value.Get<Vector2>();
 
@@ -137,7 +160,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.Play("Combo 3");
 
-            rigidBody.AddForce(-Vector3.forward * runSpeed, ForceMode.Impulse);
+            rigidBody.AddForce(transform.forward * runSpeed, ForceMode.Impulse);
         }
     }
 
@@ -148,32 +171,15 @@ public class PlayerController : MonoBehaviour
         playerStats.isAttacking = false;
     }
 
+    public void OnAttackFinished()
+    {
+        GetComponentInChildren<SwordHandler>().swordCollider.enabled = false;
+    }
+
     public void OnBlock(InputValue value)
     {
         anim.SetBool(IsBlockingHash, value.isPressed);
 
         playerStats.isBlocking = value.isPressed;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(playerStats.isJumping)
-        {
-            anim.SetBool(IsJumpingHash, false);
-            playerStats.isJumping = false;
-        }
-
-        if(collision.gameObject.CompareTag("Enemy"))
-        {
-            if(!playerStats.hasBlocked)
-            {
-                Debug.Log("Took Damage!");
-            }
-            else
-            {
-                Debug.Log("Blocked Damage!");
-                playerStats.hasBlocked = false;
-            }
-        }
     }
 }

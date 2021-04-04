@@ -18,11 +18,14 @@ public class BossAttackState : BossStates
 
     public override void Start()
     {
+        delayTimer = 0.0f;
+
         owner.navAgent.isStopped = true;
         owner.navAgent.ResetPath();
 
         owner.anim.SetFloat(WalkingHash, 0.0f);
-        owner.anim.SetBool(IsAttackingHash, true);
+        owner.anim.SetTrigger(IsAttackingHash);
+        owner.rightHand.enabled = true;
     }
 
     public override void IntervalUpdate()
@@ -42,11 +45,10 @@ public class BossAttackState : BossStates
 
         if (delayTimer >= actionDelay)
         {
-            owner.anim.SetBool(IsAttackingHash, true);
+            owner.anim.SetTrigger(IsAttackingHash);
+            owner.rightHand.enabled = true;
             delayTimer = 0.0f;
         }
-        else
-            owner.anim.SetBool(IsAttackingHash, false);
     }
 
     public override void Exit()
