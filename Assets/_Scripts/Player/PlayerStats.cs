@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Statistics
+{
+    HEALTH,
+    DAMAGE,
+    BLOCK
+}
+
 public class PlayerStats : MonoBehaviour
 {
     [Header("Player States")]
@@ -28,8 +35,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = maxHealth = 100;
-        damage = 5;
+        FinishLevelUp();
     }
 
     public void ModifyHealth(int value)
@@ -42,23 +48,37 @@ public class PlayerStats : MonoBehaviour
         healthBar.value = currentHealth;
     }
 
-    public void OnModifyHealthLevel(bool levelUp)
+    public void LevelUp(int health, int damage, int block)
     {
-        healthLevel += levelUp ? 1 : -1;
+        healthLevel = health;
+        damageLevel = damage;
+        blockLevel = block;
+
+        FinishLevelUp();
     }
 
-    public void OnModifyDamageLevel(bool levelUp)
-    {
-        damageLevel += levelUp ? 1 : -1;
-    }
+    //public void OnModifyHealthLevel(bool levelUp)
+    //{
+    //    healthLevel += levelUp ? 1 : -1;
+    //}
 
-    public void OnModifyBlockLevel(bool levelUp)
-    {
-        blockLevel += levelUp ? 1 : -1;
-    }
+    //public void OnModifyDamageLevel(bool levelUp)
+    //{
+    //    damageLevel += levelUp ? 1 : -1;
+    //}
+
+    //public void OnModifyBlockLevel(bool levelUp)
+    //{
+    //    blockLevel += levelUp ? 1 : -1;
+    //}
 
     public void FinishLevelUp()
     {
-        // TODO: apply level changes to stats
+        maxHealth = 100 + (healthLevel * 10);
+        currentHealth = maxHealth;
+
+        damage = 5 + (damageLevel * 4);
+
+        blockPercent = 65 + (blockLevel * 5);
     }
 }

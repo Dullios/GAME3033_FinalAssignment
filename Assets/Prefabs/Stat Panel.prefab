@@ -254,7 +254,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4239204460270952875}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4239204461686028774}
+        m_TargetAssemblyTypeName: StatController, Assembly-CSharp
+        m_MethodName: OnPlusClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4239204460642045343
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +537,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4239204461356363613}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4239204461686028774}
+        m_TargetAssemblyTypeName: StatController, Assembly-CSharp
+        m_MethodName: OnMinusClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4239204461414417804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,6 +1033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc8b1965abc2dc4d9a797a47165be1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: 0
   points:
   - {fileID: 4239204461831054844}
   - {fileID: 4239204460935459980}
@@ -1019,8 +1044,9 @@ MonoBehaviour:
   - {fileID: 4239204461414417806}
   minPoint: 0
   currentPoint: 0
-  activeColor: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 255}
-  inActiveColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.5019608}
+  activeColor: {r: 0.2509804, g: 0.2509804, b: 0.5019608, a: 255}
+  inActiveColor: {r: 0.5019608, g: 0.5019608, b: 0.627451, a: 0.5019608}
+  lockedColor: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
 --- !u!1 &4239204461831054842
 GameObject:
   m_ObjectHideFlags: 0

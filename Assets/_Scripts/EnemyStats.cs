@@ -19,6 +19,12 @@ public class EnemyStats : MonoBehaviour
         damage = 10;
     }
 
+    public void SetStats(int health, int dmg)
+    {
+        currentHealth = maxHealth = health;
+        damage = dmg;
+    }
+
     public void DealDamage(int dmg)
     {
         currentHealth -= dmg;
