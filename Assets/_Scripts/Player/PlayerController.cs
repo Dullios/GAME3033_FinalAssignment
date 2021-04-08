@@ -75,8 +75,12 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Blocked Damage!");
+                float damage = collision.gameObject.GetComponentInParent<EnemyStats>().damage;
+                damage -= damage * (playerStats.blockPercent * 0.01f);
+                playerStats.ModifyHealth((int)-damage);
+
                 playerStats.hasBlocked = false;
+                Debug.Log("Blocked Damage!");
             }
         }
     }

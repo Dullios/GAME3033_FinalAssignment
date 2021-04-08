@@ -83,7 +83,7 @@ public class PlayerStats : MonoBehaviour
 
         healthBar.value = currentHealth;
 
-        damage = 5 + (damageLevel * 4);
+        damage = 5 + (damageLevel * 2);
 
         blockPercent = 65 + (blockLevel * 5);
     }

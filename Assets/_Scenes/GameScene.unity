@@ -3213,12 +3213,18 @@ MonoBehaviour:
   bossSpawnPosition: {x: 0, y: 0, z: 0}
   minionPrefab: {fileID: 5024380552161511538, guid: b0a20c3a89dada149883ac3eb58deecc, type: 3}
   minionSpawn:
-  - {x: 2, y: 0, z: 2}
-  - {x: 2, y: 0, z: -2}
-  - {x: -2, y: 0, z: -2}
-  - {x: -2, y: 0, z: 2}
+  - {x: 9.5, y: 0, z: 3}
+  - {x: 12.5, y: 0, z: 6.5}
+  - {x: -9.5, y: 0, z: 3}
+  - {x: -12.5, y: 0, z: 6.5}
   bossCounter: -1
   bossPrefabIndex: 0
+  OnSaveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLoadEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1526945075
 Transform:
   m_ObjectHideFlags: 0

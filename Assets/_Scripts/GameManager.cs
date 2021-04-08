@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ISaveable
 {
     [Header("Menus")]
     public GameObject statPanel;
@@ -26,6 +27,9 @@ public class GameManager : MonoBehaviour
     public int bossCounter = -1;
     public int bossPrefabIndex;
 
+    public UnityEvent OnSaveEvent;
+    public UnityEvent OnLoadEvent;
+
     public static GameManager instance;
 
     private void Awake()
@@ -39,15 +43,16 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartNewRound();
+        if(PlayerPrefs.HasKey("BossCounter"))
+        {
+            OnLoad();
+        }
+        else
+        {
+            bossCounter = -1;
+        }
 
-        /* 
-         * TODO: Check for save
-         * 
-         * New game:
-         *  set bossCounter to 0
-         * 
-         * */
+        StartNewRound();
     }
 
     public void StartNewRound()
@@ -91,14 +96,16 @@ public class GameManager : MonoBehaviour
 
     IEnumerator BossDefeatedRoutine()
     {
+        player.GetComponent<PlayerStats>().inMenu = true;
+
         yield return new WaitForSeconds(3);
+        Destroy(currentBoss);
+        currentBoss = null;
 
         Cursor.lockState = CursorLockMode.None;
         
         statPanel.SetActive(true);
         StatManager.instance.AddPoints(2);
-
-        player.GetComponent<PlayerStats>().inMenu = true;
     }
 
     public void PlayerDefeated()
@@ -115,6 +122,9 @@ public class GameManager : MonoBehaviour
         Destroy(currentBoss);
         currentBoss = null;
 
+        foreach (GameObject minion in minions)
+            Destroy(minion);
+
         player.GetComponent<PlayerStats>().FinishLevelUp();
 
         StartNewRound();
@@ -123,5 +133,21 @@ public class GameManager : MonoBehaviour
     public void OnQuitButton()
     {
         Application.Quit();
+    }
+
+    public void OnSave()
+    {
+        OnSaveEvent.Invoke();
+
+        PlayerPrefs.SetInt("BossCounter", bossCounter);
+        PlayerPrefs.SetInt("BossIndex", bossPrefabIndex);
+    }
+
+    public void OnLoad()
+    {
+        OnLoadEvent.Invoke();
+
+        bossCounter = PlayerPrefs.GetInt("BossCounter") - 1;
+        bossPrefabIndex = PlayerPrefs.GetInt("BossIndex");
     }
 }

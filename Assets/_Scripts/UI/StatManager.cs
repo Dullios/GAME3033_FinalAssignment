@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StatManager : MonoBehaviour
+public class StatManager : MonoBehaviour, ISaveable
 {
     public int statPoints;
     [SerializeField]
@@ -22,6 +22,9 @@ public class StatManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        GameManager.instance.OnSaveEvent.AddListener(OnSave);
+        GameManager.instance.OnLoadEvent.AddListener(OnLoad);
     }
 
     private void OnEnable()
@@ -60,8 +63,11 @@ public class StatManager : MonoBehaviour
         blockController.minPoint = blockController.currentPoint;
 
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
-
         playerStats.LevelUp(healthController.minPoint, damageController.minPoint, blockController.minPoint);
+
+        GameManager.instance.OnSave();
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void ResetStats()
@@ -81,5 +87,24 @@ public class StatManager : MonoBehaviour
     private void UpdateDisplay()
     {
         statDisplay.text = $"Points: {statPoints}";
+    }
+
+    public void OnSave()
+    {
+        PlayerPrefs.SetInt("StatPoints", statPoints);
+        PlayerPrefs.SetInt("HealthMinPoint", healthController.minPoint);
+        PlayerPrefs.SetInt("DamageMinPoint", damageController.minPoint);
+        PlayerPrefs.SetInt("BlockMinPoint", blockController.minPoint);
+    }
+
+    public void OnLoad()
+    {
+        statPoints = PlayerPrefs.GetInt("StatPoints");
+        healthController.minPoint = PlayerPrefs.GetInt("HealthMinPoint");
+        damageController.minPoint = PlayerPrefs.GetInt("DamageMinPoint");
+        blockController.minPoint = PlayerPrefs.GetInt("BlockMinPoint");
+
+        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        playerStats.LevelUp(healthController.minPoint, damageController.minPoint, blockController.minPoint);
     }
 }
