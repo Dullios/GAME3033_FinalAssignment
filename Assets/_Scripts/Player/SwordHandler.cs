@@ -29,7 +29,7 @@ public class SwordHandler : MonoBehaviour
             float comboDmg = (GetComponentInParent<PlayerController>().comboStep * 0.3f) * playerStats.damage;
             comboDmg += playerStats.damage;
 
-            collision.gameObject.GetComponent<EnemyStats>().DealDamage((int)comboDmg);
+            collision.gameObject.GetComponentInParent<EnemyStats>().DealDamage((int)comboDmg);
             Debug.Log("Hit Enemy!");
         }
     }

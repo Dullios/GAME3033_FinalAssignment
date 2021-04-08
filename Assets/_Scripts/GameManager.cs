@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [Header("Minion Spawn")]
     public GameObject minionPrefab;
     public Vector3[] minionSpawn;
+    private List<GameObject> minions;
 
     [Header("Game Stats")]
     public int bossCounter = -1;
@@ -58,19 +59,33 @@ public class GameManager : MonoBehaviour
         player.transform.position = startPosition;
 
         bossCounter++;
-        // TODO: check mod 3 to spawn minions
+        if(bossCounter % 3 == 0)
+        {
+            for(int i = 0; i < minionSpawn.Length; i++)
+            {
+                GameObject minion = Instantiate(minionPrefab, minionSpawn[i], Quaternion.identity);
+                minion.GetComponent<MinionController>().followTarget = player;
+                minions.Add(minion);
+            }
+        }
 
         bossPrefabIndex = Random.Range(0, 3);
         currentBoss = Instantiate(bossPrefabs[bossPrefabIndex], bossSpawnPosition, Quaternion.identity);
         
         BossBehaviour bb = currentBoss.GetComponent<BossBehaviour>();
         bb.followTarget = player;
-        //bb.actionDelay = 
-        // TODO: set enemy stats
+        bb.actionDelay = 3 - (bossCounter * 0.25f);
+
+        EnemyStats es = currentBoss.GetComponent<EnemyStats>();
+        es.currentHealth = es.maxHealth = 100 + (bossCounter * 10);
+        es.damage = 10 + (bossCounter * 3);
     }
 
     public void BossDefeated()
     {
+        foreach (GameObject min in minions)
+            Destroy(min);
+
         StartCoroutine(BossDefeatedRoutine());
     }
 
@@ -103,5 +118,10 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerStats>().FinishLevelUp();
 
         StartNewRound();
+    }
+
+    public void OnQuitButton()
+    {
+        Application.Quit();
     }
 }

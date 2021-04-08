@@ -8,6 +8,7 @@ public class EnemyStats : MonoBehaviour
     public int currentHealth;
     public int maxHealth;
     public int damage;
+    public bool isBoss;
 
     // Animator Hashes
     public readonly int IsDeadHash = Animator.StringToHash("isDead");
@@ -15,8 +16,7 @@ public class EnemyStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth = 100;
-        damage = 10;
+        
     }
 
     public void SetStats(int health, int dmg)
@@ -31,8 +31,15 @@ public class EnemyStats : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            GetComponent<BossBehaviour>().stateMachine.ChangeState(BossStateType.Dead);
-            GameManager.instance.BossDefeated();
+            if (isBoss)
+            {
+                GetComponent<BossBehaviour>().stateMachine.ChangeState(BossStateType.Dead);
+                GameManager.instance.BossDefeated();
+            }
+            else
+            {
+                GetComponentInParent<MinionController>().state = MinionState.DEAD;
+            }
         }
     }
 }

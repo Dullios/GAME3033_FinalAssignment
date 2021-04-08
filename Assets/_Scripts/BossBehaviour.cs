@@ -25,8 +25,10 @@ public class BossBehaviour : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         stateMachine = GetComponent<StateMachine>();
 
-        leftHand.enabled = false;
-        rightHand.enabled = false;
+        if(leftHand)
+            leftHand.enabled = false;
+        if(rightHand)
+            rightHand.enabled = false;
 
         Initialize(followTarget);
     }
