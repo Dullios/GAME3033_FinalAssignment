@@ -55,9 +55,27 @@ public class StatManager : MonoBehaviour
 
     public void LevelUpPlayer()
     {
+        healthController.minPoint = healthController.currentPoint;
+        damageController.minPoint = damageController.currentPoint;
+        blockController.minPoint = blockController.currentPoint;
+
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
 
         playerStats.LevelUp(healthController.minPoint, damageController.minPoint, blockController.minPoint);
+    }
+
+    public void ResetStats()
+    {
+        statPoints = 0;
+
+        healthController.minPoint = 0;
+        healthController.currentPoint = 0;
+
+        damageController.minPoint = 0;
+        damageController.currentPoint = 0;
+
+        blockController.minPoint = 0;
+        blockController.currentPoint = 0;
     }
 
     private void UpdateDisplay()

@@ -18,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     public bool isAttacking;
     public bool isBlocking;
     public bool hasBlocked;
+    public bool inMenu;
 
     [Header("Attribtues")]
     public int currentHealth;
@@ -46,6 +47,9 @@ public class PlayerStats : MonoBehaviour
         currentHealth = Mathf.Min(maxHealth, currentHealth);
 
         healthBar.value = currentHealth;
+
+        if (currentHealth <= 0)
+            GameManager.instance.PlayerDefeated();
     }
 
     public void LevelUp(int health, int damage, int block)
@@ -76,6 +80,8 @@ public class PlayerStats : MonoBehaviour
     {
         maxHealth = 100 + (healthLevel * 10);
         currentHealth = maxHealth;
+
+        healthBar.value = currentHealth;
 
         damage = 5 + (damageLevel * 4);
 

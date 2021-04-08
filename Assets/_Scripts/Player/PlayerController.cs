@@ -44,14 +44,17 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!playerStats.isJumping && !playerStats.isAttacking && !playerStats.isBlocking)
+        if (!playerStats.inMenu)
         {
-            moveDirection = transform.forward * inputVector.y + transform.right * inputVector.x;
+            if (!playerStats.isJumping && !playerStats.isAttacking && !playerStats.isBlocking)
+            {
+                moveDirection = transform.forward * inputVector.y + transform.right * inputVector.x;
 
-            float speed = playerStats.isRunning ? runSpeed : walkSpeed;
-            Vector3 movementDirection = moveDirection * (speed * Time.deltaTime);
+                float speed = playerStats.isRunning ? runSpeed : walkSpeed;
+                Vector3 movementDirection = moveDirection * (speed * Time.deltaTime);
 
-            transform.position += movementDirection;
+                transform.position += movementDirection;
+            }
         }
     }
 
@@ -117,32 +120,38 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputValue value)
     {
-        if (!playerStats.isAttacking)
+        if (!playerStats.inMenu)
         {
-            Vector2 lookValue = value.Get<Vector2>();
+            if (!playerStats.isAttacking)
+            {
+                Vector2 lookValue = value.Get<Vector2>();
 
-            Quaternion addedRotation = Quaternion.AngleAxis(Mathf.Lerp(previousMouseDelta.x, lookValue.x, 1.0f / horizontalDampening) * rotationPower, transform.up);
+                Quaternion addedRotation = Quaternion.AngleAxis(Mathf.Lerp(previousMouseDelta.x, lookValue.x, 1.0f / horizontalDampening) * rotationPower, transform.up);
 
-            transform.rotation *= addedRotation;
+                transform.rotation *= addedRotation;
 
-            previousMouseDelta = lookValue;
+                previousMouseDelta = lookValue;
+            }
         }
     }
 
     public void OnAttack(InputValue value)
     {
-        if (!playerStats.isAttacking && !playerStats.isBlocking)
+        if (!playerStats.inMenu)
         {
-            anim.Play("Combo 1");
-            comboStep++;
-            playerStats.isAttacking = true;
-        }
-        else if (comboStep != 0)
-        {
-            if (comboPossible)
+            if (!playerStats.isAttacking && !playerStats.isBlocking)
             {
-                comboPossible = false;
+                anim.Play("Combo 1");
                 comboStep++;
+                playerStats.isAttacking = true;
+            }
+            else if (comboStep != 0)
+            {
+                if (comboPossible)
+                {
+                    comboPossible = false;
+                    comboStep++;
+                }
             }
         }
     }

@@ -30,6 +30,9 @@ public class EnemyStats : MonoBehaviour
         currentHealth -= dmg;
 
         if (currentHealth <= 0)
+        {
             GetComponent<BossBehaviour>().stateMachine.ChangeState(BossStateType.Dead);
+            GameManager.instance.BossDefeated();
+        }
     }
 }
