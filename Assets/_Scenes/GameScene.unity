@@ -567,7 +567,7 @@ RectTransform:
   - {fileID: 2053763030}
   - {fileID: 489883876}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1255,7 +1255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &643164228
 PrefabInstance:
@@ -4801,6 +4801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordCollider: {fileID: 0}
+  damageBillboard: {fileID: 6564669935493492878, guid: 1900110a4aca25740bf76983c9173fbd, type: 3}
 --- !u!54 &885633482122574995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6252,7 +6253,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5021380871906032716, guid: b0a20c3a89dada149883ac3eb58deecc, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5021380871906032716, guid: b0a20c3a89dada149883ac3eb58deecc, type: 3}
       propertyPath: m_LocalPosition.x

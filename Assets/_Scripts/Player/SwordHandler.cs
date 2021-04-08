@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,7 @@ public class SwordHandler : MonoBehaviour
 {
     public BoxCollider swordCollider;
     private PlayerStats playerStats;
+    public GameObject damageBillboard;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,10 @@ public class SwordHandler : MonoBehaviour
         {
             float comboDmg = (GetComponentInParent<PlayerController>().comboStep * 0.3f) * playerStats.damage;
             comboDmg += playerStats.damage;
+
+            Vector3 pos = collision.contacts[0].point;
+            GameObject dmgBillboard = Instantiate(damageBillboard, pos, Quaternion.identity);
+            dmgBillboard.GetComponentInChildren<TMP_Text>().text = comboDmg.ToString();
 
             collision.gameObject.GetComponentInParent<EnemyStats>().DealDamage((int)comboDmg);
             Debug.Log("Hit Enemy!");

@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [Header("Minion Spawn")]
     public GameObject minionPrefab;
     public Vector3[] minionSpawn;
-    private List<GameObject> minions;
+    private List<GameObject> minions = new List<GameObject>();
 
     [Header("Game Stats")]
     public int bossCounter = -1;
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         player.transform.position = startPosition;
 
         bossCounter++;
-        if(bossCounter % 3 == 0)
+        if(bossCounter != 00 && bossCounter % 3 == 0)
         {
             for(int i = 0; i < minionSpawn.Length; i++)
             {

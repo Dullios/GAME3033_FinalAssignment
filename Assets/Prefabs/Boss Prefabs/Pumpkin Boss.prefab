@@ -823,6 +823,7 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 0
   damage: 0
+  isBoss: 1
 --- !u!114 &2794282196602553189
 MonoBehaviour:
   m_ObjectHideFlags: 0
