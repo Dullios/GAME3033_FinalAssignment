@@ -141,6 +141,8 @@ public class GameManager : MonoBehaviour, ISaveable
 
         PlayerPrefs.SetInt("BossCounter", bossCounter);
         PlayerPrefs.SetInt("BossIndex", bossPrefabIndex);
+
+        PlayerPrefs.Save();
     }
 
     public void OnLoad()
